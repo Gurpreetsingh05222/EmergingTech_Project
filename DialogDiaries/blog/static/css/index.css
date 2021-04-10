@@ -1,23 +1,52 @@
+@font-face {
+    font-family: 'Raleway-Light';
+    src: url('../fonts/Raleway-Light.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 body {
-        font-family: "Roboto", sans-serif;
-        font-size: 18px;
-        background-color: #fdfdfd;
-    }
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    background-color: #fdfdfd;
+    background: url('../images/backgroundPage.jpg');
+}
 
-    .head_text {
-        color: white;
-    }
+.head_text {
+    color: white;
+}
 
-    .card {
-        box-shadow: 0 16px 48px #E3E7EB;
-    }
+.card {
+    box-shadow: 0 16px 48px #E3E7EB;
+}
 
-    .masthead{
-        background: url('../images/backgroundTitle.jpg') !important;
-        height: 12em !important;
-    }
+.navbar{
+    font-family: 'Raleway-Light';
+    background: url('../images/backgroundNav.png') center;
+}
 
-    .site-heading h3{
-        color : black !important;
-    }
+.navbar-light .navbar-nav .nav-link{
+    color: #f1e2cf;
+}
+
+.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover{
+    color: #ebd4b7;
+}
+
+.masthead{
+    font-family: 'Raleway-Light' !important;
+    background: url('../images/backgroundTitle.jpg') !important;
+    height: 12em !important;
+}
+
+.site-heading h3{
+
+    color : black !important;
+    font-weight: bold;
+}
+
+.site-sub-heading{
+    font-size: 15px !important;
+}
+
