@@ -51,3 +51,7 @@ body {
 .nav-link{
     color: white;
 }
+
+.nav-icon-ham{
+    color: #f1e2cf !important;
+}
