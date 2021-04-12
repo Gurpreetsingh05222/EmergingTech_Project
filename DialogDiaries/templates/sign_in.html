@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container sign-in-container">
+    <div class="row">
+        <!-- Sign In Column -->
+        <div class="col-md-12 mt-3 left ">
+            <div class="card mb-4">
+                <div class="card-body sign-in-bg">
+                </div>
+                <div class=" sign-in-card">
+                    <h2>Sign In</h2>
+                    <form class="contact-form validate-form" method="POST" action="authenticate/">
+                        {% csrf_token %}
+                        <div class="wrap-input" >
+                                <input class="input" type="text" name="username" placeholder="Username">
+                                <span class="focus-input"></span>
+                                <span class="symbol-input">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </span>
+                        </div>
+                        <div class="wrap-input">
+    						<input class="input" type="password" name="password" placeholder="Password">
+    						<span class="focus-input"></span>
+    						<span class="symbol-input">
+    							<i class="fa fa-user" aria-hidden="true"></i>
+    						</span>
+    					</div>
+                        <div class="btn-area">
+                            <button class="btn btn-login">Login</button>
+                            <button class="btn btn-register">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{%endblock%}

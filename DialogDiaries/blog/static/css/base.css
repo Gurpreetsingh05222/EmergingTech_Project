@@ -22,3 +22,11 @@ body {
     position: absolute;
     border: 8px solid #feffa1;
 }
+
+.align-right{
+    float: right !important;
+}
+
+.nav-link{
+    color: white;
+}

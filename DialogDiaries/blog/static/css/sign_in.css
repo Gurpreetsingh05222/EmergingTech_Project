@@ -1,0 +1,54 @@
+.sign-in-bg{
+    background: url(../images/signinbg.jpg) round;
+    width: 50%;
+    height: 500px;
+    margin: 10px;
+    float: left;
+}
+
+.sign-in-container{
+    padding: 6%;
+}
+
+.sign-in-card{
+    float: right;
+    padding: 5%;
+    width: 47%;
+    height: 95%;
+    text-align: center;
+}
+
+.card{
+    display: inline-block;
+    width: 100%;
+}
+
+input{
+    overflow: visible;
+    padding: 10px;
+    border-radius: 7px;
+    border-style: inset;
+    width: 90%;
+    margin: 5%;
+}
+
+input:focus{
+    outline: 0px;
+    box-shadow: 1px 2px 2px 1px brown;
+}
+
+.btn-register{
+    background: #ff5050;
+}
+
+.btn-login{
+    background: navajowhite;
+}
+
+.btn-area button{
+    width: 40%;
+}
+
+.btn-area{
+    margin: 10%;
+}
