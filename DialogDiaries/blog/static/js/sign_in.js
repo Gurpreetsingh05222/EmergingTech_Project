@@ -1,7 +1,9 @@
 $(document).ready(function(){
     $(".isa_error").delay(1000).fadeOut(5000);
     $(".isa_success").delay(1000).fadeOut(5000);
-    document.getElementsByClassName("validation-error")[0].innerHTML = '';
+    if( document.getElementsByClassName("validation-error")[0] != null) {
+        document.getElementsByClassName("validation-error")[0].innerHTML = '';
+    }
     $(".validation-error").hide();
     $(".btn-register").click(function(){
         if($(".first-name-container, .last-name-container, .email-container, .password2-container").is(":visible")==false){

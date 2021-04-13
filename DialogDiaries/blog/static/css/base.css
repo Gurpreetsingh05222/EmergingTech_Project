@@ -28,12 +28,17 @@ body {
     float: right !important;
 }
 
-.icon {
-  padding: 10px;
-  background: dodgerblue;
+.like-icon {
+  padding: 15px;
+  width: 50%;
   color: white;
-  min-width: 50px;
+  text-shadow: 0 0 3px #000;
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  min-width: 100px;
   text-align: center;
+  border-radius: 7px 0px 0px 7px;
 }
 
 .align-left{
@@ -44,8 +49,19 @@ body {
     margin-top: 10%;
 }
 
+.side-card {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+}
+
+.margin-top-left {
+    margin-top: 12%;
+    margin-left: 4%;
+}
+
 .margin-left {
-    margin-left: 10%;
+    margin-left: 7%;
 }
 
 .nav-link{
