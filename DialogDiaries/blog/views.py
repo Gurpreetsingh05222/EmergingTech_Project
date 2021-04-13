@@ -1,13 +1,21 @@
 from django.http import HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.template import loader
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import UserCreationForm
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import PostForm
 from .models import Post, User
 from django.contrib.auth import authenticate, login, logout
 
+
+class CreatePostView(LoginRequiredMixin, generic.CreateView):
+    login_url = '/sign-in'
+    redirect_field_name = 'index.html'
+
+    form_class = PostForm
+    model = Post
 
 class GetAllPosts(generic.ListView):
     queryset = Post.objects.order_by('-created_on')
@@ -21,6 +29,10 @@ class GetPostDetails(generic.DetailView):
 class GetSignIn(generic.TemplateView):
     model = User
     template_name = 'sign_in.html'
+
+class CreateBlogPost(generic.TemplateView):
+    model = Post
+    template_name = 'create_blog_post.html'
 
 @csrf_exempt
 class GetUserView(generic.TemplateView):
