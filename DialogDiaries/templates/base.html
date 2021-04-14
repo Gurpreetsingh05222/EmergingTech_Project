@@ -38,6 +38,13 @@
                             <span class="nav-link text-black font-weight-bold" style="margin-right:3em;">Hi {{user}}!</span>
                         </li>
                         {% endif %}
+                        
+                        {% if user.is_authenticated %}
+                        <li class="nav-item text-black">
+                            <a class="nav-link text-black font-weight-bold" href="/create">Create Post</a>
+                        </li>
+                        {% endif %}
+                        
                         <li class="nav-item text-black">
                             <a class="nav-link text-black font-weight-bold" href="#">About</a>
                         </li>
