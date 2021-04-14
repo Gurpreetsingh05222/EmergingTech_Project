@@ -28,10 +28,19 @@ body {
     float: right !important;
 }
 
+.width-left{
+    width: 75% !important;
+}
+
+.inline-view {
+    display: inline;
+}
+
 .like-icon {
   padding: 15px;
   width: 50%;
   color: white;
+  font-size: 1.8em !important;
   text-shadow: 0 0 3px #000;
   -webkit-text-fill-color: white;
   -webkit-text-stroke-width: 1px;
@@ -52,10 +61,6 @@ body {
 .margin-top-left {
     margin-top: 12%;
     margin-left: 4%;
-}
-
-.margin-left {
-    margin-left: 7%;
 }
 
 .nav-link{

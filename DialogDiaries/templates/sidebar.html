@@ -2,11 +2,17 @@
 
 <!-- Sidebar Widgets Column -->
 <div class="margin-top-left align-left">
-    <div class="card">
-        <i class="fa fa-thumbs-up like-icon fa-2x"></i>
-         <p style="display: inline;" class="text-muted">{{ post.likes }}</p>
-        <i style="font-size: 1.8em;" class="fa fa-comment like-icon fa-2x"></i>
-        <p style="display: inline;" class="text-muted">{{ total_comments }}</p>
+    <div class="card width-left">
+        <form class="contact-form validate-form" method="POST" action="{% url 'authenticate' %}">
+            <button type="button" class="btn">
+                <i class="fa fa-thumbs-up like-icon fa-2x"></i>
+            </button>
+            <p class="text-muted inline-view">{{ post.likes }}</p>
+             <button type="button" class="btn">
+                 <i class="fa fa-comment like-icon"></i>
+             </button>
+            <p class="text-muted inline-view">{{ total_comments }}</p>
+        </form>
         <!--<p class="card-text"> Dialog Diaries was started with an
         intent to bring people together and let them share their wonderful thoughts and ideas.</p>
         <a href="#"
