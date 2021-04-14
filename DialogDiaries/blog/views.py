@@ -16,6 +16,8 @@ class CreatePostView(LoginRequiredMixin, generic.CreateView):
 
     form_class = PostForm
     model = Post
+    template_name = 'post_form.html'
+    success_url = '/'
 
 class GetAllPosts(generic.ListView):
     queryset = Post.objects.order_by('-created_on')
@@ -30,9 +32,9 @@ class GetSignIn(generic.TemplateView):
     model = User
     template_name = 'sign_in.html'
 
-class CreateBlogPost(generic.TemplateView):
-    model = Post
-    template_name = 'create_blog_post.html'
+# class CreateBlogPost(generic.TemplateView):
+#     model = Post
+#     template_name = 'create_blog_post.html'
 
 @csrf_exempt
 class GetUserView(generic.TemplateView):
