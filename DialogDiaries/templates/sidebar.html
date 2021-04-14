@@ -1,17 +1,12 @@
 {% block sidebar %}
 
-<!--<style>
-        .card{
-            box-shadow: 0 16px 48px #E3E7EB;
-        }
-
-</style>-->
-
 <!-- Sidebar Widgets Column -->
 <div class="margin-top-left align-left">
-    <div class="card side-card">
+    <div class="card">
         <i class="fa fa-thumbs-up like-icon fa-2x"></i>
+         <p style="display: inline;" class="text-muted">{{ post.likes }}</p>
         <i style="font-size: 1.8em;" class="fa fa-comment like-icon fa-2x"></i>
+        <p style="display: inline;" class="text-muted">{{ total_comments }}</p>
         <!--<p class="card-text"> Dialog Diaries was started with an
         intent to bring people together and let them share their wonderful thoughts and ideas.</p>
         <a href="#"

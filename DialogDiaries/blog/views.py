@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import PostForm
-from .models import Post, User
+from .models import Post, User, Comment
 from django.contrib.auth import authenticate, login, logout
 
 
@@ -23,10 +23,13 @@ class GetAllPosts(generic.ListView):
     queryset = Post.objects.order_by('-created_on')
     template_name = 'index.html'
 
-class GetPostDetails(generic.DetailView):
-    model = Post
-    template_name = 'post_detail.html'
-
+class GetPostDetails(generic.TemplateView):
+    def PostDetails(request, slug):
+        post = Post.objects.filter(slug=slug)[0]
+        template = loader.get_template('post_detail.html')
+        count = Comment.objects.filter(post=post).count()
+        context = {'post': post, 'total_comments': count}
+        return HttpResponse(template.render(context, request))
 
 class GetSignIn(generic.TemplateView):
     model = User

@@ -49,12 +49,6 @@ body {
     margin-top: 10%;
 }
 
-.side-card {
-    -webkit-column-count: 2;
-    -moz-column-count: 2;
-    column-count: 2;
-}
-
 .margin-top-left {
     margin-top: 12%;
     margin-left: 4%;
