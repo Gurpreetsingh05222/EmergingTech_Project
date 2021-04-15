@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.template import loader
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
@@ -8,7 +8,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import PostForm
 from .models import Post, User, Comment
 from django.contrib.auth import authenticate, login, logout
-
 
 class CreatePostView(LoginRequiredMixin, generic.CreateView):
     login_url = '/sign-in'
@@ -73,3 +72,8 @@ class GetUserView(generic.TemplateView):
         logout(request)
         return redirect('/')
 
+
+def post_remove(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.delete()
+    return redirect('/')
