@@ -20,7 +20,6 @@ class ContactView(generic.CreateView):
 class CreatePostView(LoginRequiredMixin, generic.CreateView):
     login_url = '/sign-in'
     redirect_field_name = 'index.html'
-
     form_class = PostForm
     model = Post
     template_name = 'post_form.html'
