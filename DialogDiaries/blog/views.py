@@ -6,8 +6,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import PostForm, ContactForm
-from .models import Post, User, Comment, ContactUs
+from .models import Post, User, Comment, ContactUs, Like
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 
 class ContactView(generic.CreateView):
@@ -33,9 +34,19 @@ class GetPostDetails(generic.TemplateView):
     def PostDetails(request, slug):
         post = Post.objects.filter(slug=slug)[0]
         template = loader.get_template('post_detail.html')
-        count = Comment.objects.filter(post=post).count()
-        context = {'post': post, 'total_comments': count}
+        comment_count = Comment.objects.filter(post=post).count()
+        like_count = Like.objects.filter(post=post).count()
+        context = {'post': post, 'total_comments': comment_count, 'total_likes': like_count}
         return HttpResponse(template.render(context, request))
+
+class UpdatePost(generic.TemplateView):
+    @login_required(login_url='/sign-in')
+    def AddLike(request):
+        print('authenticated')
+
+    @login_required(login_url='/sign-in')
+    def AddComment(request):
+        print('authenticated')
 
 class GetSignIn(generic.TemplateView):
     model = User

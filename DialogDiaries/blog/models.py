@@ -7,7 +7,6 @@ class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    likes = models.IntegerField(default=0)
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
@@ -17,6 +16,17 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+class Like(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    posted_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-posted_on']
+
+    def __str__(self):
+        return self.content
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
