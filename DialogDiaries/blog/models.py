@@ -60,3 +60,11 @@ class Post_Category(models.Model):
         return self.category
 
 
+class ContactUs(models.Model):
+    full_name = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100)
+    phone = models.IntegerField()
+    message = models.CharField(max_length = 200)
+
+    def __str__(self):
+        return self.email

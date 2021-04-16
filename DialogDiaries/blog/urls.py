@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.GetAllPosts.as_view(), name='home'),
+    path('contactus/', views.ContactView.as_view(), name = 'contact'),
     path('create/', views.CreatePostView.as_view(), name='post_new'),
     path('sign-in/', views.GetSignIn.as_view(), name='sign_in'),
     path('sign-out/', views.GetUserView.LogOut, name='sign_out'),

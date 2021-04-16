@@ -5,9 +5,16 @@ from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import PostForm
-from .models import Post, User, Comment
+from .forms import PostForm, ContactForm
+from .models import Post, User, Comment, ContactUs
 from django.contrib.auth import authenticate, login, logout
+
+
+class ContactView(generic.CreateView):
+    form_class = ContactForm
+    model = ContactUs
+    template_name = 'contact_us.html'
+    success_url = '/'
 
 class CreatePostView(LoginRequiredMixin, generic.CreateView):
     login_url = '/sign-in'
