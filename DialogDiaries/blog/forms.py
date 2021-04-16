@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, ContactUs
+from .models import Post, ContactUs, User
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -9,6 +9,11 @@ class PostForm(forms.ModelForm):
             'title':forms.TextInput(attrs={'class': 'textinputclass'}),
             'text': forms.Textarea(attrs={'class': 'postcontent'})
         }
+
+class UpdateForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content']
 
 class ContactForm(forms.ModelForm):
     class Meta:

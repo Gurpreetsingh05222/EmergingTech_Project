@@ -13,4 +13,5 @@ urlpatterns = [
     #path('sign-in/authenticate/', views.GetUserView.LogInUser, name='sign_in'),
     path('<slug:slug>/', views.GetPostDetails.PostDetails, name='post_detail'),
     path('post/<pk>/remove/', views.post_remove, name='post_remove'),
+    path('post/edit/<pk>', views.UpdatePostView.as_view(), name='update_post')
 ]

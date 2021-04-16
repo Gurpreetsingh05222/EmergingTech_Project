@@ -5,7 +5,7 @@ from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import PostForm, ContactForm
+from .forms import PostForm, ContactForm, UpdateForm
 from .models import Post, User, Comment, ContactUs, Like
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -20,10 +20,17 @@ class ContactView(generic.CreateView):
 class CreatePostView(LoginRequiredMixin, generic.CreateView):
     login_url = '/sign-in'
     redirect_field_name = 'index.html'
+
     form_class = PostForm
     model = Post
     template_name = 'post_form.html'
     success_url = '/'
+
+class UpdatePostView(generic.UpdateView):
+    form_class = UpdateForm
+    model = Post
+    template_name = 'update_post.html'
+    success_url = "/"
 
 class GetAllPosts(generic.ListView):
     queryset = Post.objects.order_by('-created_on')
@@ -69,14 +76,11 @@ class GetUserView(generic.TemplateView):
         else:
             template = loader.get_template('sign_in.html')
             if email!="":
-                request_form = request.POST
+                print(request.POST)
                 form = UserCreationForm(request.POST)
                 if form.is_valid():
-                    new_user = User.objects.create_user(request_form['username'], request_form['email'], request_form['password1'])
-                    new_user.first_name = request_form['first_name']
-                    new_user.last_name = request_form['last_name']
-                    new_user.save()
-                    user = authenticate(request, username=new_user.username, password=request_form['password1'])
+                    form.save()
+                    user = authenticate(request, username=username, password=password)
                     print(user)
                     if user is not None:
                         context = {'register_success': 'Registered successfully! Log in now!'}
