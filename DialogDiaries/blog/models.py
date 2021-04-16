@@ -40,8 +40,8 @@ class Like(models.Model):
     class Meta:
         ordering = ['-posted_on']
 
-    # def __str__(self):
-    #     return self.content
+    def __str__(self):
+        return self.content
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

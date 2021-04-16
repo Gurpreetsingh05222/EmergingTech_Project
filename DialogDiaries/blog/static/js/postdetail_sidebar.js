@@ -4,7 +4,6 @@ $(document).ready(function(){
         var slug = $('#post').val();
         var isAuthenticated = $("#is_authenticated").val();
         data = {'post_slug': slug };
-        debugger;
         if(isAuthenticated == "True"){
             $.ajax({
               type: "POST",
@@ -19,7 +18,7 @@ $(document).ready(function(){
             });
         }
         else{
-            window.location.href = "sign-in.html?next=" + window.location.pathname;
+            window.location.href = "sign-in.html?next=" + $(this).data('url') + '&post='+ slug;
         }
     });
 });
