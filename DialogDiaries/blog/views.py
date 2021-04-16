@@ -5,7 +5,7 @@ from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import PostForm, ContactForm
+from .forms import PostForm, ContactForm, UpdateForm
 from .models import Post, User, Comment, ContactUs, Like
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -20,10 +20,17 @@ class ContactView(generic.CreateView):
 class CreatePostView(LoginRequiredMixin, generic.CreateView):
     login_url = '/sign-in'
     redirect_field_name = 'index.html'
+
     form_class = PostForm
     model = Post
     template_name = 'post_form.html'
     success_url = '/'
+
+class UpdatePostView(generic.UpdateView):
+    form_class = UpdateForm
+    model = Post
+    template_name = 'update_post.html'
+    success_url = "/"
 
 class GetAllPosts(generic.ListView):
     queryset = Post.objects.order_by('-created_on')
@@ -94,3 +101,6 @@ def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     return redirect('/')
+
+def about(request):
+    return render(request , 'about.html')
