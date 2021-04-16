@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.GetAllPosts.as_view(), name='home'),
     path('contactus/', views.ContactView.as_view(), name = 'contact'),
+    path('about/', views.about, name = 'about'),
     path('create/', views.CreatePostView.as_view(), name='post_new'),
     path('sign-in/authenticate/', views.GetUserView.LogInUser, name='authenticate'),
     re_path('sign-in', views.GetSignIn.as_view(), name='sign_in'),
@@ -13,4 +14,5 @@ urlpatterns = [
     #path('sign-in/authenticate/', views.GetUserView.LogInUser, name='sign_in'),
     path('<slug:slug>/', views.GetPostDetails.PostDetails, name='post_detail'),
     path('post/<pk>/remove/', views.post_remove, name='post_remove'),
+    path('post/edit/<pk>', views.UpdatePostView.as_view(), name='update_post')
 ]

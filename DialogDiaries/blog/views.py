@@ -65,6 +65,10 @@ class GetSignIn(generic.TemplateView):
 @csrf_exempt
 class GetUserView(generic.TemplateView):
     def LogInUser(request):
+        next = request.POST.get('next', '')
+        post = request.POST.get('post', '')
+        print(next)
+        print(post)
         username = request.POST.get('username')
         password = request.POST.get('password1')
         email = request.POST.get('email')
@@ -72,6 +76,9 @@ class GetUserView(generic.TemplateView):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            if next is not None and next != '':
+                return redirect(next, {'post' : post })
+
             return redirect('/', {'post_list': Post.objects.order_by('-created_on')})
         else:
             template = loader.get_template('sign_in.html')
@@ -84,12 +91,18 @@ class GetUserView(generic.TemplateView):
                     print(user)
                     if user is not None:
                         context = {'register_success': 'Registered successfully! Log in now!'}
+                        if next is not None and next != '':
+                            return redirect(next, {'post' : post })
                     else:
                         context = {'register_error': 'Invalid details! Unable to sign up!'}
                 else:
                     context = {'register_error': 'Invalid details! Unable to sign up!'}
             else:
                 context = {'login_error': 'Username or Password is invalid!'}
+
+            context["next"] = next
+            context["post"] = post
+            print(context)
             return HttpResponse(template.render(context, request))
 
     def LogOut(request):

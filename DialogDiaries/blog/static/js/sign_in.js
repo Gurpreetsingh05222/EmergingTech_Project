@@ -1,3 +1,30 @@
+function getQueryString() {
+	var result = {};
+	if(!window.location.search.length) return result;
+	var qs = window.location.search.slice(1);
+	var parts = qs.split("&");
+	for(var i=0, len=parts.length; i<len; i++) {
+		var tokens = parts[i].split("=");
+		result[tokens[0]] = decodeURIComponent(tokens[1]);
+	}
+	return result;
+}
+
+function addFields(self) {
+    debugger;
+    var qs = getQueryString();
+    for(var key in qs) {
+        var val = $("#" + key).val();
+        if(val == null  || val == '') {
+            $("#" + key).val(qs[key]);
+            //var field = $(document.createElement("input"));
+            //field.attr("name", key).attr("type","hidden");
+            //field.val(qs[key]);
+            //self.append(field);
+        }
+    }
+}
+
 $(document).ready(function(){
     $(".isa_error").delay(1000).fadeOut(5000);
     $(".isa_success").delay(1000).fadeOut(5000);
@@ -5,6 +32,13 @@ $(document).ready(function(){
         document.getElementsByClassName("validation-error")[0].innerHTML = '';
     }
     $(".validation-error").hide();
+    var $form = $(".contact-form");
+    addFields($form);
+
+    $(".btn-login").click(function() {
+        $form.submit();
+    });
+
     $(".btn-register").click(function(){
         if($(".first-name-container, .last-name-container, .email-container, .password2-container").is(":visible")==false){
             $(".first-name-container, .last-name-container, .email-container, .password2-container").css({'display':'flex'});
@@ -20,7 +54,7 @@ $(document).ready(function(){
             var username = $(".user-name-container input").val();
             if(firstname!="" && lastname!="" && email!="" && password1!="" && password2!="" && username!=""){
                 if(password2==password1){
-                    $(".contact-form").submit();
+                    $form.submit();
                 }
                 else{
                     error_message = "Password does not match!"
