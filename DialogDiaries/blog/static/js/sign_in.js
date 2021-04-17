@@ -35,10 +35,6 @@ $(document).ready(function(){
     var $form = $(".contact-form");
     addFields($form);
 
-    $(".btn-login").click(function() {
-        $form.submit();
-    });
-
     $(".btn-register").click(function(){
         if($(".first-name-container, .last-name-container, .email-container, .password2-container").is(":visible")==false){
             $(".first-name-container, .last-name-container, .email-container, .password2-container").css({'display':'flex'});
