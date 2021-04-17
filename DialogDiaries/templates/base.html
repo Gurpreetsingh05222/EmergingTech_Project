@@ -37,7 +37,9 @@
                     <ul class="align-right navbar-nav ml-auto">
                         {% if user.is_authenticated %}
                         <li class="nav-item text-black">
-                            <span class="nav-link text-black font-weight-bold" style="margin-right:3em;">Hi {{user}}!</span>
+                            <span class="nav-link text-black font-weight-bold" style="margin-right:3em;">
+                                <a href="{% url 'userprofile' pk=user.pk%}" style="text-decoration: none; color: #FDF4E3;"> Hi {{user}}!</a>
+                            </span>
                         </li>
                         {% endif %}
                         
