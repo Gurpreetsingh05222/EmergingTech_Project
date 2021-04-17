@@ -43,7 +43,7 @@
                             <input class="input-field" type="text" placeholder="Email" name="email">
                         </div>
                         <div class="btn-area">
-                            <button class="btn btn-login">Login</button>
+                            <button type="button" class="btn btn-login">Login</button>
                             <button type="button" class="btn btn-register">Register</button>
                         </div>
                         <div class="isa_error validation-error">
@@ -66,6 +66,7 @@
                         {% endif %}
                         <input type="hidden" id="next" name="next" value={{next}}>
                         <input type="hidden" id="post" name="post" value= {{post}}>
+                        <input type="hidden" id="register" name="register" value= {{register_error}}>
                     </form>
                 </div>
             </div>
