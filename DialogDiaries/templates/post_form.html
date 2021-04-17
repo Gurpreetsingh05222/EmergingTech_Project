@@ -40,7 +40,7 @@
 
 <div class="form-div">
     <h1>New Post</h1>
-    <form class="post-form" method="POST">
+    <form class="post-form" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="title">
             <label for="title">Title</label>
@@ -48,11 +48,15 @@
         </div>
         <div class="author">
             <label for="author">Author</label>
-            <span>{{ user }}</span>
+            <span>{{ form.author }}</span>
         </div>
         <div class="content">
             <label for="content">Content</label>
             <span>{{ form.content }}</span>
+        </div>
+        <div class="image">
+            <label for="image">Content</label>
+            <span>{{ form.image }}</span>
         </div>
         <!-- {{ form.as_p }} -->
         <button type="submit" name="button">Save</button>

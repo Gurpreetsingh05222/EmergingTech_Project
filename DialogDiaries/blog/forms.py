@@ -4,10 +4,11 @@ from .models import Post, ContactUs, User
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'author', 'content']
+        fields = ['title', 'author', 'content', 'image']
         widgets = {
             'title':forms.TextInput(attrs={'class': 'textinputclass'}),
-            'text': forms.Textarea(attrs={'class': 'postcontent'})
+            'text': forms.Textarea(attrs={'class': 'postcontent'}),
+            'image':forms.FileInput()
         }
 
 class UpdateForm(forms.ModelForm):
