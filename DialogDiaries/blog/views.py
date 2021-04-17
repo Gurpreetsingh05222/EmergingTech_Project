@@ -40,6 +40,7 @@ class UpdatePostView(generic.UpdateView):
 class GetAllPosts(generic.ListView):
     queryset = Post.objects.order_by('-created_on')
     template_name = 'index.html'
+    paginate_by = 3
 
 class GetPostDetails(generic.TemplateView):
     def PostDetails(request, slug):
