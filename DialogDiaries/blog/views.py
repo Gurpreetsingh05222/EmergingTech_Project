@@ -20,11 +20,17 @@ class ContactView(generic.CreateView):
 class CreatePostView(LoginRequiredMixin, generic.CreateView):
     login_url = '/sign-in'
     redirect_field_name = 'index.html'
-
     form_class = PostForm
     model = Post
     template_name = 'post_form.html'
     success_url = '/'
+
+    def form_valid(self, form):
+        print(form)
+        post = form.save()
+        print(post)
+        return redirect('/')
+
 
 class UpdatePostView(generic.UpdateView):
     form_class = UpdateForm
@@ -83,11 +89,14 @@ class GetUserView(generic.TemplateView):
         else:
             template = loader.get_template('sign_in.html')
             if email!="":
-                print(request.POST)
+                request_form = request.POST
                 form = UserCreationForm(request.POST)
                 if form.is_valid():
-                    form.save()
-                    user = authenticate(request, username=username, password=password)
+                    new_user = User.objects.create_user(request_form['username'], request_form['email'], request_form['password1'])
+                    new_user.first_name = request_form['first_name']
+                    new_user.last_name = request_form['last_name']
+                    new_user.save()
+                    user = authenticate(request, username=new_user.username, password=request_form['password1'])
                     print(user)
                     if user is not None:
                         context = {'register_success': 'Registered successfully! Log in now!'}

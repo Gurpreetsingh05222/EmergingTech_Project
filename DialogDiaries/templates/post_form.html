@@ -13,7 +13,7 @@
         /* background-color: #F7F7F7; */
         padding: 10px;
     }
-    
+
     label
     {
         width: 20%;
@@ -36,16 +36,11 @@
         height: 80px;
     }
 
-    select{
-        width: 100% ;
-        height: 50px;
-    }
-    
 </style>
 
 <div class="form-div">
     <h1>New Post</h1>
-    <form class="post-form" method="POST">
+    <form class="post-form" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="title">
             <label for="title">Title</label>
@@ -58,6 +53,10 @@
         <div class="content">
             <label for="content">Content</label>
             <span>{{ form.content }}</span>
+        </div>
+        <div class="image">
+            <label for="image">Add Image</label>
+            <span>{{ form.image }}</span>
         </div>
         <!-- {{ form.as_p }} -->
         <button type="submit" name="button">Save</button>
