@@ -4,7 +4,7 @@ from .models import Post, ContactUs, User
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'author', 'content', 'image']
+        fields = ['title', 'content', 'image']
         widgets = {
             'title':forms.TextInput(attrs={'class': 'textinputclass'}),
             'text': forms.Textarea(attrs={'class': 'postcontent'}),

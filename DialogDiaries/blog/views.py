@@ -26,9 +26,8 @@ class CreatePostView(LoginRequiredMixin, generic.CreateView):
     success_url = '/'
 
     def form_valid(self, form):
-        print(form)
+        form.instance.author = self.request.user
         post = form.save()
-        print(post)
         return redirect('/')
 
 
