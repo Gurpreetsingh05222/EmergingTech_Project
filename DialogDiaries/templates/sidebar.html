@@ -6,11 +6,11 @@
         <button id="addLike" data-url="{% url 'add_likes' %}" type="submit" class="btn">
             <i class="fa fa-thumbs-up like-icon fa-2x"></i>
         </button>
-        <p class="text-muted inline-view">{{ total_likes }}</p>
+        <p id="likes" class="text-muted inline-view">{{ total_likes }}</p>
          <button id="addComment" data-url="{% url 'add_comments' %}" type="submit" class="btn">
              <i class="fa fa-comment like-icon"></i>
          </button>
-        <p class="text-muted inline-view">{{ total_comments }}</p>
+        <p id="comments" class="text-muted inline-view">{{ total_comments }}</p>
         <input type="hidden" id="post" name="post" value={{ post.slug }}>
         <input type="hidden" id="token" name="token" value={{ csrf_token }}>
         <input type="hidden" id="is_authenticated" name="is_authenticated" value={{ user.is_authenticated }}>

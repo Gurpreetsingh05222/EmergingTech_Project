@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.template import loader
 from django.views import generic
@@ -56,6 +56,7 @@ class GetAllPosts(generic.ListView):
     template_name = 'index.html'
     paginate_by = 3
 
+
 class GetPostDetails(generic.TemplateView):
     def PostDetails(request, slug):
         post = Post.objects.filter(slug=slug)[0]
@@ -63,16 +64,36 @@ class GetPostDetails(generic.TemplateView):
         comment_count = Comment.objects.filter(post=post).count()
         like_count = Like.objects.filter(post=post).count()
         context = {'post': post, 'total_comments': comment_count, 'total_likes': like_count}
+        print(context)
         return HttpResponse(template.render(context, request))
+
 
 class UpdatePost(generic.TemplateView):
     @login_required(login_url='/sign-in')
     def AddLike(request):
-        print('authenticated')
+        slug = request.GET.get('post', '')
+        redirected = request.GET.get('redirect', '')
+        post = Post.objects.filter(slug=slug)[0]
+        user = request.user
+        count = Like.objects.filter(post=post, posted_by=user).count()
+        if count == 0:
+            Like.objects.create(post=post, posted_by=user)
+        if redirected != '' and redirected == 'true':
+            return redirect('post_detail', slug)
+
+        like_count = Like.objects.filter(post=post).count()
+        comment_count = Comment.objects.filter(post=post).count()
+        return JsonResponse({'total_comments': comment_count, 'total_likes': like_count})
 
     @login_required(login_url='/sign-in')
     def AddComment(request):
-        print('authenticated')
+        slug = request.GET.get('post', '')
+        redirect = request.GET.get('redirect', '')
+        post = Post.objects.filter(slug=slug)[0]
+        user = request.user
+        #count = Comment.objects.filter(post=post, posted_by=user).count()
+        #if count == 0:
+        #    Comment.objects.create(post=post, posted_by=user)
 
 class GetSignIn(generic.TemplateView):
     model = User
@@ -87,8 +108,6 @@ class GetUserView(generic.TemplateView):
     def LogInUser(request):
         next = request.POST.get('next', '')
         post = request.POST.get('post', '')
-        print(next)
-        print(post)
         username = request.POST.get('username')
         password = request.POST.get('password1')
         email = request.POST.get('email')
@@ -97,7 +116,7 @@ class GetUserView(generic.TemplateView):
         if user is not None:
             login(request, user)
             if next is not None and next != '':
-                return redirect(next, {'post' : post })
+                return redirect(next + "?post=" + post + "&redirect=true")
 
             return redirect('/', {'post_list': Post.objects.order_by('-created_on')})
         else:
@@ -116,7 +135,7 @@ class GetUserView(generic.TemplateView):
                         context = {'register_success': 'Registered successfully! Log in now!'}
                         if next is not None and next != '':
                             login(request, user)
-                            return redirect(next, {'post' : post })
+                            return redirect(next + "?post=" + post + "&redirect=true")
                     else:
                         context = {'register_error': 'Invalid details! Unable to sign up!'}
                 else:
