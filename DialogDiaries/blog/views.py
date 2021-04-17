@@ -115,6 +115,7 @@ class GetUserView(generic.TemplateView):
                     if user is not None:
                         context = {'register_success': 'Registered successfully! Log in now!'}
                         if next is not None and next != '':
+                            login(request, user)
                             return redirect(next, {'post' : post })
                     else:
                         context = {'register_error': 'Invalid details! Unable to sign up!'}
