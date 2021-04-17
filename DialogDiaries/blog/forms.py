@@ -14,7 +14,7 @@ class PostForm(forms.ModelForm):
 class UpdateForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content']
+        fields = ['title', 'content', 'image']
 
 class ContactForm(forms.ModelForm):
     class Meta:

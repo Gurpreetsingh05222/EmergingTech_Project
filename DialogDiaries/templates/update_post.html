@@ -8,11 +8,25 @@
         width: 100%;
 
     }
-    .title,.author,.content{
+    .title,.author,.content,.image{
         width: 100%;
         display: flex;
         /* background-color: #F7F7F7; */
         padding: 10px;
+    }
+
+    #image-clear_id{
+        margin-left: 10%;
+        width: 3%;
+    }
+
+    label[for=image-clear_id]{
+        width: 0px;
+    }
+
+    #id_image{
+        width: 75%;
+        background: white;
     }
 
     label
@@ -50,6 +64,10 @@
         <div class="content">
             <label for="content">Content</label>
             <span>{{ form.content }}</span>
+        </div>
+        <div class="image">
+            <label for="image">Image</label>
+            <span>{{ form.image }}</span>
         </div>
         <button class="btn btn-success">Update</button>
     </form>
