@@ -9,7 +9,7 @@
         {% if post.image %}
         <img class="post-image" src="../media/{{post.image}}">
         {% endif %}
-        <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
+        <p class=" text-muted"> <a href="{% url 'post_user_profile' pk=post.pk %}"> {{ post.author }} </a>| {{ post.created_on }}</p>
         <p class="card-text ">{{ post.content | safe }}</p>
         <a class="btn btn-primary" href="{% url 'update_post' pk=post.pk%}">Edit Post</a>
         <a class="btn btn-danger" href="{% url 'post_remove' pk=post.pk %}">Delete Post</a>

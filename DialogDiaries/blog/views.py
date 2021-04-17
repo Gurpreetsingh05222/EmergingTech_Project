@@ -10,6 +10,10 @@ from .models import Post, User, Comment, ContactUs, Like
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
+class GetUserDetails(generic.DetailView):
+    queryset = Post.objects.all()
+    template_name = 'post_detail_profile.html'
+
 class UserProfileView(generic.DetailView):
     model = User
     template_name = 'profile.html'
