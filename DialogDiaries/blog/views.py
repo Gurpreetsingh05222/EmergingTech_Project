@@ -66,12 +66,10 @@ class GetAllPosts(generic.ListView):
 
     def get_queryset(self):
         filter_val = self.request.GET.get('filter', '')
-        print(filter_val)
-        if filter_val=='':
+        if filter_val == '':
             filter_val = [x.id for x in Category.objects.all()]
-        print(filter_val)
         new_context = Post.objects.filter(
-            Q(category__in = filter_val) | Q(category__isnull = True)
+            Q(category__in=filter_val) | Q(category__isnull=True)
         ).order_by('-created_on')
         return new_context
 
