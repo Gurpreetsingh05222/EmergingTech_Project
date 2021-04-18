@@ -185,3 +185,11 @@ def getAllCategories(request):
     data = Category.objects.all()
     category_list = serializers.serialize('json', data)
     return HttpResponse(category_list, content_type="text/json-comment-filtered")
+
+def search_post(request):
+    if request.method == "POST":
+        searched = request.POST['searched'] #use parenthesis if not work
+        posts = Post.objects.filter(title__contains=searched)
+        return render(request, 'search_post.html', {'searched': searched, 'posts': posts})
+    else:
+        return render(request, 'search_post.html', {})
