@@ -173,6 +173,10 @@ class GetUserView(generic.TemplateView):
         return redirect('/')
 
 
+class GetPolicy(generic.TemplateView):
+    template_name = 'policy.html'
+
+
 def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
