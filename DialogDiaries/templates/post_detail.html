@@ -15,7 +15,7 @@
         {% if post.image %}
         <img class="post-image" src="../media/{{post.image}}">
         {% endif %}
-        <p class=" text-muted"> <a href="{% url 'post_user_profile' pk=post.pk %}"> {{ post.author }} </a>| {{ post.created_on }}</p>
+        <p class=" text-muted"> <a href="{% url 'post_user_profile' pk=post.author.pk %}"> {{ post.author }} </a>| {{ post.created_on }}</p>
         <p class="card-text ">{{ post.content | safe }}</p>
         {% if user.username == post.author.username or user.username == 'admin' %}
         <a class="btn btn-primary" href="{% url 'update_post' pk=post.pk%}">Edit Post</a>

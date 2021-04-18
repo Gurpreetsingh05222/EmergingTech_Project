@@ -13,9 +13,11 @@ from django.db.models import Q
 from django.core import serializers
 import json
 
+
 class GetUserDetails(generic.DetailView):
-    queryset = Post.objects.all()
+    queryset = User.objects.all()
     template_name = 'post_detail_profile.html'
+
 
 class UserProfileView(generic.DetailView):
     model = User
@@ -28,11 +30,13 @@ class UserProfileView(generic.DetailView):
         context["page_user"] = page_user
         return context
 
+
 class ContactView(generic.CreateView):
     form_class = ContactForm
     model = ContactUs
     template_name = 'contact_us.html'
     success_url = '/'
+
 
 class CreatePostView(LoginRequiredMixin, generic.CreateView):
     login_url = '/sign-in'
@@ -53,6 +57,7 @@ class UpdatePostView(generic.UpdateView):
     model = Post
     template_name = 'update_post.html'
     success_url = "/"
+
 
 class GetAllPosts(generic.ListView):
     queryset = Post.objects.order_by('-created_on')
@@ -81,9 +86,29 @@ class GetPostDetails(generic.TemplateView):
         post = Post.objects.filter(slug=slug)[0]
         template = loader.get_template('post_detail.html')
         comment_count = Comment.objects.filter(post=post).count()
+        user = request.user
+        user_comment_count = 0
+        if not user.is_anonymous:
+            user_comment_count = Comment.objects.filter(post=post, posted_by=user).count()
+        comment_list = Comment.objects.filter(post=post).order_by('-posted_on')
         like_count = Like.objects.filter(post=post).count()
-        context = {'post': post, 'total_comments': comment_count, 'total_likes': like_count}
-        print(context)
+        context = {'post': post, 'total_comments': comment_count, 'total_likes': like_count,
+                   'user_comment_count': user_comment_count, 'comment_list': comment_list}
+        return HttpResponse(template.render(context, request))
+
+    def PostDetailsComment(request, slug, showCommentBar):
+        post = Post.objects.filter(slug=slug)[0]
+        template = loader.get_template('post_detail.html')
+        comment_count = Comment.objects.filter(post=post).count()
+        user = request.user
+        user_comment_count = 0
+        if not user.is_anonymous:
+            user_comment_count = Comment.objects.filter(post=post, posted_by=user).count()
+        comment_list = Comment.objects.filter(post=post).order_by('-posted_on')
+        like_count = Like.objects.filter(post=post).count()
+        context = {'post': post, 'total_comments': comment_count, 'total_likes': like_count,
+                   'showCommentBar': showCommentBar, 'user_comment_count': user_comment_count,
+                   'comment_list': comment_list}
         return HttpResponse(template.render(context, request))
 
 
@@ -108,16 +133,29 @@ class UpdatePost(generic.TemplateView):
     @login_required(login_url='/sign-in')
     def AddComment(request):
         slug = request.GET.get('post', '')
-        redirect = request.GET.get('redirect', '')
+        return redirect('post_detail_comment', slug, "True")
+
+    @login_required(login_url='/sign-in')
+    def AddUserComment(request):
+        slug = request.GET.get('post', '')
         post = Post.objects.filter(slug=slug)[0]
         user = request.user
-        #count = Comment.objects.filter(post=post, posted_by=user).count()
-        #if count == 0:
-        #    Comment.objects.create(post=post, posted_by=user)
+        comment_content = request.POST.get('content', '')
+        Comment.objects.create(post=post, content=comment_content, posted_by=user)
+        user_comment_count = Comment.objects.filter(post=post, posted_by=user).count()
+        comment_list = Comment.objects.filter(post=post, posted_by=user)
+        like_count = Like.objects.filter(post=post).count()
+        comment_count = Comment.objects.filter(post=post).count()
+        comment_list = serializers.serialize('json', comment_list)
+        return JsonResponse({'total_comments': comment_count, 'total_likes': like_count
+                                , 'user_comment_count': user_comment_count
+                                , 'comment_list': comment_list})
+
 
 class GetSignIn(generic.TemplateView):
     model = User
     template_name = 'sign_in.html'
+
 
 # class CreateBlogPost(generic.TemplateView):
 #     model = Post
@@ -131,7 +169,7 @@ class GetUserView(generic.TemplateView):
         username = request.POST.get('username')
         password = request.POST.get('password1')
         email = request.POST.get('email')
-        context = {'login_error' : None, 'register_error': None, 'register_success': None}
+        context = {'login_error': None, 'register_error': None, 'register_success': None}
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
@@ -141,16 +179,16 @@ class GetUserView(generic.TemplateView):
             return redirect('/', {'post_list': Post.objects.order_by('-created_on')})
         else:
             template = loader.get_template('sign_in.html')
-            if email!="":
+            if email != "":
                 request_form = request.POST
                 form = UserCreationForm(request.POST)
                 if form.is_valid():
-                    new_user = User.objects.create_user(request_form['username'], request_form['email'], request_form['password1'])
+                    new_user = User.objects.create_user(request_form['username'], request_form['email'],
+                                                        request_form['password1'])
                     new_user.first_name = request_form['first_name']
                     new_user.last_name = request_form['last_name']
                     new_user.save()
                     user = authenticate(request, username=new_user.username, password=request_form['password1'])
-                    print(user)
                     if user is not None:
                         context = {'register_success': 'Registered successfully! Log in now!'}
                         if next is not None and next != '':
@@ -165,7 +203,6 @@ class GetUserView(generic.TemplateView):
 
             context["next"] = next
             context["post"] = post
-            print(context)
             return HttpResponse(template.render(context, request))
 
     def LogOut(request):
@@ -182,13 +219,16 @@ def post_remove(request, pk):
     post.delete()
     return redirect('/')
 
+
 def about(request):
-    return render(request , 'about.html')
+    return render(request, 'about.html')
+
 
 def getAllCategories(request):
     data = Category.objects.all()
     category_list = serializers.serialize('json', data)
     return HttpResponse(category_list, content_type="text/json-comment-filtered")
+
 
 def search_post(request):
     if request.method == "POST":
