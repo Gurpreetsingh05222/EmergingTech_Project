@@ -77,6 +77,14 @@ body {
     height: 200px;
 }
 
+#filter-select{
+    background: white;
+    box-shadow: 2px 2px lightgrey;
+    border: 1px solid whitesmoke;
+    margin: 2%;
+    width: 30%;
+}
+
 @media only screen and (max-width: 600px){
     img{
         margin: auto;

@@ -78,6 +78,11 @@
                 </div>
             </div>
         </nav>
+        <form class="form-inline-responsive my-2 my-lg-0" method="POST" action="{% url 'search-post' %}">
+                        {% csrf_token %}
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search Post" name="searched" aria-label="Search" required>
+                        <button class="btn btn-danger" type="submit">Search</button>
+        </form>
         {% block content %}
         <!-- Content Goes here -->
         {% endblock content %}

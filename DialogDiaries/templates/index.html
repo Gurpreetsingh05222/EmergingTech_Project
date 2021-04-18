@@ -18,15 +18,8 @@
 <div class="container">
     <form method="get" action="{% url 'home' %}">
         <input type="hidden" value="{{filter}}" id="filter-selected">
-    Filter: <select id="filter-select" name="filter">
+    Filter: <select class="btn dropdown" id="filter-select" name="filter">
         <option selected value="">---All---</option>
-        <!--{% for post in post_list %}
-        {% if post.category %}
-        {% with filter=post.category.id %}
-        <option value="{{filter}}">{{post.category}}</option>
-        {% endwith %}
-        {% endif %}
-        {% endfor %}-->
     </select>
 
     <p>

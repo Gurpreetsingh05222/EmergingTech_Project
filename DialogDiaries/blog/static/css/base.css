@@ -70,3 +70,22 @@ body {
 .nav-icon-ham{
     color: #f1e2cf !important;
 }
+
+.form-inline-responsive{
+    position: absolute;
+    display: none;
+    right: 30px;
+}
+
+@media only screen and (max-width: 992px){
+    .form-inline-responsive{
+        display: inline-flex;
+        margin-top: 1% !important;
+    }
+    .form-inline{
+        display: none;
+    }
+    .site-heading{
+        margin-top: 15% !important;
+    }
+}

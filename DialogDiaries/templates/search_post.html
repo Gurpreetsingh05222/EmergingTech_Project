@@ -6,9 +6,13 @@
         width: 70%;
         margin: auto;
     }
+    .search-msg{
+        margin: 7%;
+
+    }
 </style>
 {% if searched %}
-    <h1 class="text-center">You searched for {{ searched }}</h1>
+    <h3 class="text-center search-msg">You searched for " {{ searched }} "</h3>
     <br>
     
     <div class="row">
