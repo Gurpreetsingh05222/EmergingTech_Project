@@ -6,6 +6,12 @@
     <div class="col-md-9 card mb-4  mt-3 left  top">
       <div class="card-body">
         <h1>{% block title %} {{ post.title }} {% endblock title %}</h1>
+        {% if post.category %}
+        <div class="isa_info">
+            <i class="fa fa-list-alt"></i>
+          {{ post.category }}
+        </div>
+        {% endif %}
         {% if post.image %}
         <img class="post-image" src="../media/{{post.image}}">
         {% endif %}

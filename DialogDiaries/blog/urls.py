@@ -12,9 +12,11 @@ urlpatterns = [
     path('add-likes/', views.UpdatePost.AddLike, name='add_likes'),
     path('add-comments/', views.UpdatePost.AddComment, name='add_comments'),
     #path('sign-in/authenticate/', views.GetUserView.LogInUser, name='sign_in'),
+    re_path('getallcategories/', views.getAllCategories, name='categories_list'),
     path('<slug:slug>/', views.GetPostDetails.PostDetails, name='post_detail'),
     path('post/<pk>/remove/', views.post_remove, name='post_remove'),
     path('post/edit/<pk>', views.UpdatePostView.as_view(), name='update_post'),
     path('<pk>/profile/', views.UserProfileView.as_view(), name='userprofile'),
     path('<pk>/postUserProfile/', views.GetUserDetails.as_view(), name='post_user_profile'),
+
 ]

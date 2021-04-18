@@ -6,9 +6,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import PostForm, ContactForm, UpdateForm
-from .models import Post, User, Comment, ContactUs, Like
+from .models import Post, User, Comment, ContactUs, Like, Category
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.core import serializers
+import json
 
 class GetUserDetails(generic.DetailView):
     queryset = Post.objects.all()
@@ -56,6 +59,22 @@ class GetAllPosts(generic.ListView):
     template_name = 'index.html'
     paginate_by = 3
 
+    def get_queryset(self):
+        filter_val = self.request.GET.get('filter', '')
+        print(filter_val)
+        if filter_val=='':
+            filter_val = [x.id for x in Category.objects.all()]
+        print(filter_val)
+        new_context = Post.objects.filter(
+            Q(category__in = filter_val) | Q(category__isnull = True)
+        ).order_by('-created_on')
+        return new_context
+
+    def get_context_data(self, **kwargs):
+        context = super(GetAllPosts, self).get_context_data(**kwargs)
+        context['filter'] = self.request.GET.get('filter', '')
+        return context
+
 
 class GetPostDetails(generic.TemplateView):
     def PostDetails(request, slug):
@@ -66,6 +85,7 @@ class GetPostDetails(generic.TemplateView):
         context = {'post': post, 'total_comments': comment_count, 'total_likes': like_count}
         print(context)
         return HttpResponse(template.render(context, request))
+
 
 
 class UpdatePost(generic.TemplateView):
@@ -160,3 +180,8 @@ def post_remove(request, pk):
 
 def about(request):
     return render(request , 'about.html')
+
+def getAllCategories(request):
+    data = Category.objects.all()
+    category_list = serializers.serialize('json', data)
+    return HttpResponse(category_list, content_type="text/json-comment-filtered")

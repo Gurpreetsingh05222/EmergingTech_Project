@@ -8,7 +8,7 @@
 
     }
 
-    .title,.author,.content, .image{
+    .title,.author,.content, .image, .category{
         width: 100%;
         display: flex;
         /* background-color: #F7F7F7; */
@@ -41,6 +41,10 @@
         height: 80px;
     }
 
+    .category select{
+        width: inherit;
+    }
+
 </style>
 
 <div class="form-div">
@@ -54,6 +58,10 @@
         <div class="content">
             <label for="content">Content</label>
             <span>{{ form.content }}</span>
+        </div>
+        <div class="category">
+            <label for="category">Category</label>
+            <span>{{ form.category }}</span>
         </div>
         <div class="image">
             <label for="image">Add Image</label>
