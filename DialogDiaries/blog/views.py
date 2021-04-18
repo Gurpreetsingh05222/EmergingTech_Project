@@ -192,7 +192,7 @@ def getAllCategories(request):
 
 def search_post(request):
     if request.method == "POST":
-        searched = request.POST['searched'] #use parenthesis if not work
+        searched = request.POST['searched']
         posts = Post.objects.filter(title__contains=searched)
         return render(request, 'search_post.html', {'searched': searched, 'posts': posts})
     else:
