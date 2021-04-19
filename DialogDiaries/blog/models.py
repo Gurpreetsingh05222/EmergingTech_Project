@@ -4,12 +4,14 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.text import slugify
 
+
 class Category(models.Model):
     name = models.CharField(max_length=40, unique=True)
     description = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
+
 
 class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
@@ -32,6 +34,7 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+
 class Like(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     posted_by = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -39,6 +42,7 @@ class Like(models.Model):
 
     class Meta:
         ordering = ['-posted_on']
+
 
 
 class Comment(models.Model):

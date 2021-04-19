@@ -11,7 +11,6 @@ function getQueryString() {
 }
 
 function addFields(self) {
-    debugger;
     var qs = getQueryString();
     for(var key in qs) {
         var val = $("#" + key).val();
@@ -83,11 +82,8 @@ $(document).ready(function(){
                 $(".validation-error").delay(1000).fadeOut(5000, function(){
                     document.getElementsByClassName("validation-error")[0].innerHTML = '';
                 });
-
             }
-
         }
-
     });
 
 });

@@ -21,22 +21,24 @@
         margin: 5%;
     }
 </style>
+
 <h1>User Profile</h1>
 <div class="profile">
 <div class="img">
     <img src="{% static 'images/userprofile.png'%}" alt="userprofile" style="width:100%;height:300px;">
 </div>
 <div class="info">
-    <h2>User Name: {{ post.author.username }}</h2>
-    {% if post.author.first_name %}
-    <h2>User first name: {{post.author.first_name}}</h2>
+    <h2>User Name: {{ user.username }}</h2>
+    {% if user.first_name %}
+    <h2>User first name: {{user.first_name}}</h2>
     {% endif %}
-    {% if post.author.last_name %}
-    <h2>User last name: {{post.author.last_name}}</h2>
+    {% if user.last_name %}
+    <h2>User last name: {{user.last_name}}</h2>
     {% endif %}
-    {% if post.author.email %}
-    <h2>User email: {{ post.author.email }}</h2>
+    {% if user.email %}
+    <h2>User email: {{ user.email }}</h2>
     {% endif %}
 </div>
 </div>
+
 {% endblock %}
