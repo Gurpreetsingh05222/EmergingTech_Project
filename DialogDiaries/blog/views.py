@@ -17,6 +17,7 @@ import json
 class GetUserDetails(generic.DetailView):
     queryset = User.objects.all()
     template_name = 'post_detail_profile.html'
+    context_object_name = "profile_user"
 
 
 class UserProfileView(generic.DetailView):

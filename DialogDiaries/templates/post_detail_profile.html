@@ -28,15 +28,15 @@
     <img src="{% static 'images/userprofile.png'%}" alt="userprofile" style="width:100%;height:300px;">
 </div>
 <div class="info">
-    <h2>User Name: {{ user.username }}</h2>
+    <h2>User Name: {{ profile_user.username }}</h2>
     {% if user.first_name %}
-    <h2>User first name: {{user.first_name}}</h2>
+    <h2>User first name: {{profile_user.first_name}}</h2>
     {% endif %}
-    {% if user.last_name %}
-    <h2>User last name: {{user.last_name}}</h2>
+    {% if profile_user.last_name %}
+    <h2>User last name: {{profile_user.last_name}}</h2>
     {% endif %}
-    {% if user.email %}
-    <h2>User email: {{ user.email }}</h2>
+    {% if profile_user.email %}
+    <h2>User email: {{ profile_user.email }}</h2>
     {% endif %}
 </div>
 </div>
