@@ -35,14 +35,27 @@ $(document).ready(function(){
     var $form = $(".contact-form");
     addFields($form);
 
-    $(".btn-login").click(function() {
-        $form.submit();
+    if($("#register").val()!=''){
+        if($(".first-name-container, .last-name-container, .email-container, .password2-container").is(":visible")==false){
+            $(".first-name-container, .last-name-container, .email-container, .password2-container").css({'display':'flex'});
+            $(".sign-in-bg").css("height","725px");
+        }
+    }
+
+    $(".btn-login").click(function(){
+        if($(".first-name-container, .last-name-container, .email-container, .password2-container").is(":visible")==true){
+            $(".first-name-container, .last-name-container, .email-container, .password2-container").css({'display':'none'});
+            $(".sign-in-bg").css("height","500px");
+        }
+        else{
+            $form.submit();
+        }
     });
 
     $(".btn-register").click(function(){
         if($(".first-name-container, .last-name-container, .email-container, .password2-container").is(":visible")==false){
             $(".first-name-container, .last-name-container, .email-container, .password2-container").css({'display':'flex'});
-            $(".sign-in-bg").css("height","725px")
+            $(".sign-in-bg").css("height","725px");
         }
         else{
             var error_message = "";

@@ -1,33 +1,24 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+
 {% block content %}
+<style>
+    .row{
+        width: 70%;
+        margin: auto;
+    }
+    .search-msg{
+        margin: 7%;
 
-<header class="masthead">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class=" col-md-8 col-md-10 mx-auto">
-                <div class="site-heading" >
-                    <h3 class=" site-heading my-4 mt-3 text-white"> TRUST IS ESTABLISHED BY DIALOG. <br>
-                        <span class="site-sub-heading">~ Paula Friere </span>
-                    </h3>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-<div class="container">
-    <form method="get" action="{% url 'home' %}">
-        <input type="hidden" value="{{filter}}" id="filter-selected">
-    Filter: <select class="btn dropdown" id="filter-select" name="filter">
-        <option selected value="">---All---</option>
-    </select>
-
-    <p>
-    </form>
+    }
+</style>
+{% if searched %}
+    <h3 class="text-center search-msg">You searched for " {{ searched }} "</h3>
+    <br>
+    
     <div class="row">
         <!-- Blog Entries Column -->
         <div class="col-md-12 mt-3 left">
-            {% for post in post_list %}
+            {% for post in posts %}
             <div class="card mb-4">
                 <div class="card-body details">
                     {% if post.image %}
@@ -53,20 +44,8 @@
             {% endfor %}
         </div>
     </div>
-</div>
-{% if is_paginated %}
-  <nav aria-label="Page navigation conatiner"></nav>
-  <ul class="pagination justify-content-center">
-    {% if page_obj.has_previous %}
-    <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
-    {% endif %}
-    {% if page_obj.has_next %}
-    <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
 
-    {% endif %}
-  </ul>
-  </nav>
-</div>
+{% else %}
+<h1>Input something in search...</h1>    
 {% endif %}
-
-{%endblock%}
+{% endblock %}

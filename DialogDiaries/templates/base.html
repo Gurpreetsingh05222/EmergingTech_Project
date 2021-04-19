@@ -15,12 +15,14 @@
         
         <script src="{% static 'js/sign_in.js' %}"></script>
         <script src="{% static 'js/postdetail_sidebar.js' %}"></script>
+        <script src="{% static 'js/index.js' %}"></script>
         <link rel="shortcut icon" href="#">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/sign_in.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/blog_post.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/policy.css' %}">
     </head>
 
     <body>
@@ -37,7 +39,9 @@
                     <ul class="align-right navbar-nav ml-auto">
                         {% if user.is_authenticated %}
                         <li class="nav-item text-black">
-                            <span class="nav-link text-black font-weight-bold" style="margin-right:3em;">Hi {{user}}!</span>
+                            <span class="nav-link text-black font-weight-bold" style="margin-right:3em;">
+                                <a href="{% url 'userprofile' pk=user.pk%}" style="text-decoration: none; color: #FDF4E3;"> Hi {{user}}!</a>
+                            </span>
                         </li>
                         {% endif %}
                         
@@ -51,7 +55,7 @@
                             <a class="nav-link text-black font-weight-bold" href="/about">About</a>
                         </li>
                         <li class="nav-item text-black">
-                            <a class="nav-link text-black font-weight-bold" href="#">Policy</a>
+                            <a class="nav-link text-black font-weight-bold" href="/policy">Policy</a>
                         </li>
                         <li class="nav-item text-black">
                             <a class="nav-link text-black font-weight-bold" href="/contactus">Contact</a>
@@ -66,9 +70,19 @@
                         </li>
                         {% endif %}
                     </ul>
+                    <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'search-post' %}">
+                        {% csrf_token %}
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search Post" name="searched" aria-label="Search" required>
+                        <button class="btn btn-danger my-2 my-sm-0" type="submit">Search</button>
+                      </form>
                 </div>
             </div>
         </nav>
+        <form class="form-inline-responsive my-2 my-lg-0" method="POST" action="{% url 'search-post' %}">
+                        {% csrf_token %}
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search Post" name="searched" aria-label="Search" required>
+                        <button class="btn btn-danger" type="submit">Search</button>
+        </form>
         {% block content %}
         <!-- Content Goes here -->
         {% endblock content %}

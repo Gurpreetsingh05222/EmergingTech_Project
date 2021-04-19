@@ -11,8 +11,13 @@ urlpatterns = [
     path('sign-out/', views.GetUserView.LogOut, name='sign_out'),
     path('add-likes/', views.UpdatePost.AddLike, name='add_likes'),
     path('add-comments/', views.UpdatePost.AddComment, name='add_comments'),
-    #path('sign-in/authenticate/', views.GetUserView.LogInUser, name='sign_in'),
+    path('policy/', views.GetPolicy.as_view(), name='policy'),
+    re_path('getallcategories/', views.getAllCategories, name='categories_list'),
     path('<slug:slug>/', views.GetPostDetails.PostDetails, name='post_detail'),
     path('post/<pk>/remove/', views.post_remove, name='post_remove'),
-    path('post/edit/<pk>', views.UpdatePostView.as_view(), name='update_post')
+    path('post/edit/<pk>', views.UpdatePostView.as_view(), name='update_post'),
+    path('<pk>/profile/', views.UserProfileView.as_view(), name='userprofile'),
+    path('<pk>/postUserProfile/', views.GetUserDetails.as_view(), name='post_user_profile'),
+    path('search', views.search_post, name='search-post'),
+
 ]

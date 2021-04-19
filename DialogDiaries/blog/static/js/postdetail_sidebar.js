@@ -3,17 +3,17 @@ $(document).ready(function(){
         e.preventDefault();
         var slug = $('#post').val();
         var isAuthenticated = $("#is_authenticated").val();
-        data = {'post_slug': slug };
         if(isAuthenticated == "True"){
             $.ajax({
               type: "POST",
-              url: $(this).data('url'),
+              url: $(this).data('url') + '?post=' + slug,
               data: {
-                        content: data,
+                        content: '',
                         'csrfmiddlewaretoken': $('#token').val()
                     },
-              success: function(data, status, xhr) {
-                console.log(xhr.getResponseHeader('Location'));
+              success: function(data) {
+                $("#likes").text(data.total_likes);
+                $("#comments").text(data.total_comments);
               }
             });
         }

@@ -14,12 +14,12 @@ class Category(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
-    # category = models.ForeignKey(Category, on_delete = models.CASCADE)
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
-    # category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
+    category = models.ForeignKey(Category, null=True, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['-created_on']
@@ -40,8 +40,6 @@ class Like(models.Model):
     class Meta:
         ordering = ['-posted_on']
 
-    def __str__(self):
-        return self.content
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -68,14 +66,6 @@ class Post_Tag(models.Model):
 
     def __str__(self):
         return self.tag
-
-
-# class Post_Category(models.Model):
-#     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-#     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-
-    # def __str__(self):
-    #     return self.category.name
 
 
 class ContactUs(models.Model):
